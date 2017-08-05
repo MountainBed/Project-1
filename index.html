@@ -3,97 +3,95 @@
 
 <head>
     <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Refrigerator Rama!</title>
 </head>
 
 <body>
-    <div class="">
-        <div class="row">
-            <div class="col s12 blue lighten-2">
-                <h1 class="center-align white-text">Refrigerator Rama!</h1></div>
-        </div>
-        <div class="row">
-            <!--Master row -->
-            <div class="col s3 blue-grey lighten-4">
-                <!--Beginning 1st Column Row -->
-                <div class="row">
-                    <h5 class="center-align white-text">What do we have?</h5>
-                    <form class="col s12">
-                        <p class="darken-2-text">Input up to any three ingredients</p>
-                        <input class="white" placeholder="Enter Ingredient" id="ingredient" type="text">
-                        <button class="btn red waves-effect">Submit</button>
-                    </form>
-                </div>
-                <!--Closing Inside 1st Column Row -->
-            </div>
-            <div class="col s3 orange">
-                <!--Beginning 2nd Column Row -->
-                <div class="row">
-                    <h5 class="center-align white-text">Items we've got</h5>
-                    <div class="row">
-                        <table id="ingredient-area">
-                            <thead>
-                                <tr>
-                                    <th>Ingredients</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Flour</td>
-                                </tr>
-                            </tbody>
-                        </table>
+    <div class="container">
+        <!-- SLIDER -->
+        <div class="slider slides testing">
+            <ul class="slides">
+                <li>
+                    <img src="assets/images/food-q-c-1280-200-2.png" alt="">
+                    <div class="caption center-align">
+                        <h3>What's in our refrigerator?</h3>
+                        <h5>Select three ingredients</h5>
                     </div>
-                    <div class="row">
-                        <form class="col s12">
-                            <p class="darken-2-text">Find a restaurant</p>
-                            <input class="white" placeholder="Enter Cuisine" id="cuisine" type="text">
-                            <button class="btn red waves-effect">Submit</button>
-                        </form>
+                </li>
+                <li>
+                    <img src="assets/images/food-q-c-1280-200-4.png " alt=" ">
+                    <div class="caption left-align ">
+                        <h3>What's in our refrigerator?</h3>
+                        <h5>Select three ingredients</h5>
                     </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- GRID SYSTEM -->
+    <div class="row">
+        <div class="col s3">
+            <div class="card-panel white">
+                <!-- FORM -->
+                <h3>Ingredients</h3>
+                <form>
+                    <div class="input-field">
+                        <input type="text" id="firstIngredient" class="validate">
+                        <label class="active" for="firstIngredient">First Ingredient</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="text" id="secondIngredient" class="validate">
+                        <label class="active" for="secondIngredient">Second Ingredient</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="text" id="thirdIngredient" class="validate">
+                        <label class="active" for="thirdIngredient">Third Ingredient</label>
+                    </div>
+                    <br>
+                    <button class="btn waves-effect red"><i class="material-icons left">restaurant_menu</i> Submit</button>
+                </form>
+                <div>
+                    <br>
+                    <button class="btn waves-effect"><i class="material-icons left">restaurant</i> Find Restaurants</button>
                 </div>
-                <!--Closing Inside 2nd Column Row -->
             </div>
-            <div class="col s6 green">
-                <h5 class="center-align white-text">Recipes</h5></div>
         </div>
-        <!--Closing Master row -->
-    </div>
-    <!-- 
-
-
-        <div class="row">
-            <div class="col s12  blue lighten-2">
-                <h1 class="center-align white-text">Refrigerator Rama!</h1>
-            </div>
-            <div class="col s6">6-columns (one-half)</div>
-            <div class="col s6">6-columns (one-half)</div>
+        <div class="col s9">
+            <div class="card-panel white">These are the pictures & map</div>
         </div>
-        <div class="row">
-            <h1>COLORS</h1>
-            <div class="red white-text">Div with color classs</div>
-            <h1>BUTTON</h1>
-            <button class="btn">Read More</button>
-            <button class="btn waves-effect waves-light">Read More</button>
-            <button class="btn-large yellow black-text">Read More</button>
-            <button class="btn disabled">Read More</button>
-            <button class="btn-large red waves-effect">Read More</button>
-            <button class="btn-large green waves-effect">Read More</button>
-            <button class="btn-large purple waves-effect">Read More</button>
-            <button class="btn-large blue waves-effect">Read More</button>
-            <button class="btn-large orange waves-effect"><i class="material-icons left">cloud</i>Read More</button>
-            <button class="btn-large aqua waves-effect"><i class="material-icons left">build</i>Read More</button>
-            <!-- Floating buttons -->
-    <!-- <a href="#" class="btn-floating red bnt-large"><i class="material-icons left">add</i></a> -->
     </div>
+    <!-- ./container -->
+    <div style="height:500px "></div>
+    <!-- This keeps us off the bottom of the page -->
     <!--Import jQuery before materialize.js-->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+    <script type="text/javascript " src="https://code.jquery.com/jquery-2.1.1.min.js "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js "></script>
+    <script>
+    $(document).ready(function() {
+        // Init Carousel
+        $('.carousel').carousel();
+
+        // Init Carousel Slider
+        $('.carousel.carousel-slider').carousel({ fullWidth: true });
+
+        // Fire off toast
+        //Materialize.toast('Hello World', 3000);
+
+        // Init Slider
+        $('.slider').slider();
+
+        // Init Modal
+        $('.modal').modal();
+
+        // Init Sidenav
+        $('.button-collapse').sideNav();
+    });
+    </script>
 </body>
 
 </html>
