@@ -21,10 +21,6 @@ a {
     display: inline-block;
 }
 
-a img {
-    width: 150px;
-}
-
 a p {
     position: absolute;
     top: 0;
@@ -32,12 +28,16 @@ a p {
     right: 0;
     bottom: 0;
     margin: 0;
-    background: grey;
+    background: white;
     color: #fff;
     opacity: 0;
     transition: 1s;
+    color: black;
+    padding: 1em;
+    font-size: 1em;
+    font-weight: 200%;
 }
 
 a p:hover {
-    opacity: 1;
+    opacity: 0.75;
 }
