@@ -15,16 +15,12 @@
 .row {
     margin-top: 10px !important;
 }
-
+/*This tag just refers all links in the site*/
 a {
     position: relative;
     display: inline-block;
 }
-
-a img {
-    width: 150px;
-}
-
+/*All of the p tags that are within a tags*/
 a p {
     position: absolute;
     top: 0;
@@ -32,12 +28,20 @@ a p {
     right: 0;
     bottom: 0;
     margin: 0;
-    background: grey;
-    color: #fff;
-    opacity: 0;
+    background-color: rgba(255,255,255, 0);
     transition: 1s;
+    color: rgba(0,0,0,0);
+    padding: 1em;
+    font-size: 1em;
+    font-style: bold;
 }
-
+/*On hover, bring opacity up*/
 a p:hover {
-    opacity: 1;
+    background-color: rgba(255,255,255,0.75);
+    color: rgba(0,0,0,1);
+}
+.placeholder-img{
+    max-height: 425px;
+    width: 100%;
+    opacity: 0.65;
 }
