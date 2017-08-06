@@ -308,6 +308,7 @@ function initMap () {
     service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, callback);
   }, function () {
+    // Google documentation said to have this, so it was not replaced with a modal.
     alert("Error");
   });
 };
@@ -334,13 +335,14 @@ function createMarker (place) {
 };
 
 $(document).ready(function () {
-  $(".carousel").carousel();
-  $(".carousel.carousel-slider").carousel({ fullWidth: true });
+  // $(".carousel").carousel();
+  // $(".carousel.carousel-slider").carousel({ fullWidth: true });
   $(".slider").slider();
   $(".button-collapse").sideNav();
   $("#modal1").modal();
 
   $("#search-recipe").on("click", function (event) {
+    event.preventDefault();
     var firstIngredient = $("#firstIngredient").val().trim();
     var secondIngredient = $("#secondIngredient").val().trim();
     var thirdIngredient = $("#thirdIngredient").val().trim();
@@ -377,10 +379,10 @@ $(document).ready(function () {
             recipeID.push(results.matches[i].id);
             recipeNames.push(results.matches[i].recipeName);
 
-            var recipeDiv = $("<div class='recipe-display col s4'>");
+            var recipeDiv = $("<div class='recipe-display col s4 center-align'>");
             var recipeImg = $("<img class='responsive-img recipe-img'>");
             var recipeLink = $("<a>");
-            var recipeNameDisp = $("<p>");
+            var recipeNameDisp = $("<p class='valign-wrapper'>");
             var newURL = "https://api.yummly.com/v1/api/recipe/" + recipeID[i] + "?_app_id=" + appID + "&_app_key=" + apiKEY;
 
             $.ajax({
@@ -390,7 +392,6 @@ $(document).ready(function () {
             })
               .done(function (response) {
                 var recipeResults = response;
-
                 recipeImg.attr("src", recipeResults.images[0].imageUrlsBySize["360"]);
                 recipeLink.attr("href", recipeResults.source.sourceRecipeUrl);
                 recipeLink.attr("target", "_blank");
