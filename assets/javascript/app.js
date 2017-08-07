@@ -20,7 +20,6 @@ function checkLet (arr) {
 
   for (var i = 0; i < arr.length; i++) {
     if (!(regex.test(arr[i]))) {
-      console.log("Number in: " + i);
       bool = false;
     }
   }
