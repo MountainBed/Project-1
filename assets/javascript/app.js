@@ -14,6 +14,17 @@ function checkNum (arr) {
     return true;
   }
 };
+function checkLet (arr) {
+  var regex = /^[a-zA-Z]+$/;
+  var bool = true;
+
+  for (var i = 0; i < arr.length; i++) {
+    if (!(regex.test(arr[i]))) {
+      bool = false;
+    }
+  }
+  return bool;
+};
 function buildArray (a, b, c) {
   var arr = [];
   var finalArr = [];
@@ -38,6 +49,77 @@ function buildIngredientURL (array) {
     }
   }
   return searchquery;
+};
+function yummlyAPI (e) {
+  e.preventDefault();
+
+  var firstIngredient = $("#firstIngredient").val().trim();
+  var secondIngredient = $("#secondIngredient").val().trim();
+  var thirdIngredient = $("#thirdIngredient").val().trim();
+
+  userIngredientArray = buildArray(firstIngredient, secondIngredient, thirdIngredient);
+
+  var appID = "1178d920";
+  var apiKEY = "9444249c26105ff9651c6b6d9088c564";
+  var userStr = buildIngredientURL(userIngredientArray);
+  var queryURL = "https://api.yummly.com/v1/api/recipes?_app_id=" + appID + "&_app_key=" + apiKEY + userStr;
+
+  recipeID = [];
+  recipeNames = [];
+
+  if (checkNum(userIngredientArray) && checkLet(userIngredientArray)) {
+    $.ajax({
+      url: queryURL,
+      method: "GET",
+      async: false,
+      success: function (response) {
+        var results = response;
+        var numRecipe = Math.min(maxRecipes, response.matches.length);
+        var attributionDiv = $("<div>");
+        $("#recipe-area").empty();
+        $("#firstIngredient").val("");
+        $("#secondIngredient").val("");
+        $("#thirdIngredient").val("");
+
+        attributionDiv.html("<br>" + results.attribution.html);
+
+        $("#recipe-area").css("height", "100%");
+        for (var i = 0; i < numRecipe; i++) {
+          recipeID.push(results.matches[i].id);
+          recipeNames.push(results.matches[i].recipeName);
+
+          var recipeDiv = $("<div class='recipe-display col s4 center-align'>");
+          var recipeImg = $("<img class='responsive-img recipe-img'>");
+          var recipeLink = $("<a>");
+          var recipeNameDisp = $("<p class='valign-wrapper'>");
+          var newURL = "https://api.yummly.com/v1/api/recipe/" + recipeID[i] + "?_app_id=" + appID + "&_app_key=" + apiKEY;
+
+          $.ajax({
+            url: newURL,
+            method: "GET",
+            async: false,
+            success: function (response) {
+              var recipeResults = response;
+              recipeImg.attr("src", recipeResults.images[0].imageUrlsBySize["360"]);
+              recipeLink.attr("href", recipeResults.source.sourceRecipeUrl);
+              recipeLink.attr("target", "_blank");
+              recipeNameDisp.text(recipeResults.source.sourceDisplayName + ": " + recipeResults.name);
+
+              recipeLink.append(recipeNameDisp);
+              recipeLink.append(recipeImg);
+              recipeDiv.append(recipeLink);
+            }
+          });
+
+          $("#recipe-area").prepend(recipeDiv);
+        }
+
+        $("#recipe-area").append(attributionDiv);
+      }
+    });
+  } else {
+    $("#modal1").modal("open");
+  }
 };
 function initMap () {
   $("#recipe-area").empty();
@@ -309,7 +391,7 @@ function initMap () {
     service.nearbySearch(request, callback);
   }, function () {
     // Google documentation said to have this, so it was not replaced with a modal.
-    alert("Error");
+    $("#recipe-area").html("<p>There was an error generating the map...");
   });
 };
 
@@ -327,90 +409,26 @@ function createMarker (place) {
     position: place.geometry.location,
     icon: "assets/images/Food-Cutlery-icon.png"
   });
+  var markerCurrent = new google.maps.Marker({
+    map: map,
+    position: { lat: latitude, lng: longitude }
+  });
 
   google.maps.event.addListener(marker, "click", function () {
     infowindow.setContent(place.name);
     infowindow.open(map, this);
   });
+  google.maps.event.addListener(markerCurrent, "click", function () {
+    infowindow.setContent("You are here");
+    infowindow.open(map, this);
+  });
 };
 
 $(document).ready(function () {
-  // $(".carousel").carousel();
-  // $(".carousel.carousel-slider").carousel({ fullWidth: true });
   $(".slider").slider();
   $(".button-collapse").sideNav();
   $("#modal1").modal();
 
-  $("#search-recipe").on("click", function (event) {
-    event.preventDefault();
-    var firstIngredient = $("#firstIngredient").val().trim();
-    var secondIngredient = $("#secondIngredient").val().trim();
-    var thirdIngredient = $("#thirdIngredient").val().trim();
-
-    userIngredientArray = buildArray(firstIngredient, secondIngredient, thirdIngredient);
-
-    var appID = "1178d920";
-    var apiKEY = "9444249c26105ff9651c6b6d9088c564";
-    var userStr = buildIngredientURL(userIngredientArray);
-    var queryURL = "https://api.yummly.com/v1/api/recipes?_app_id=" + appID + "&_app_key=" + apiKEY + userStr;
-
-    recipeID = [];
-    recipeNames = [];
-
-    if (checkNum(userIngredientArray)) {
-      $.ajax({
-        url: queryURL,
-        method: "GET",
-        async: false
-      })
-        .done(function (response) {
-          var results = response;
-          var numRecipe = Math.min(maxRecipes, response.matches.length);
-          var attributionDiv = $("<div>");
-          $("#recipe-area").empty();
-          $("#firstIngredient").val("");
-          $("#secondIngredient").val("");
-          $("#thirdIngredient").val("");
-
-          attributionDiv.html(results.attribution.html);
-
-          $("#recipe-area").css("height", "100%");
-          for (var i = 0; i < numRecipe; i++) {
-            recipeID.push(results.matches[i].id);
-            recipeNames.push(results.matches[i].recipeName);
-
-            var recipeDiv = $("<div class='recipe-display col s4 center-align'>");
-            var recipeImg = $("<img class='responsive-img recipe-img'>");
-            var recipeLink = $("<a>");
-            var recipeNameDisp = $("<p class='valign-wrapper'>");
-            var newURL = "https://api.yummly.com/v1/api/recipe/" + recipeID[i] + "?_app_id=" + appID + "&_app_key=" + apiKEY;
-
-            $.ajax({
-              url: newURL,
-              method: "GET",
-              async: false
-            })
-              .done(function (response) {
-                var recipeResults = response;
-                recipeImg.attr("src", recipeResults.images[0].imageUrlsBySize["360"]);
-                recipeLink.attr("href", recipeResults.source.sourceRecipeUrl);
-                recipeLink.attr("target", "_blank");
-                recipeNameDisp.text(recipeResults.source.sourceDisplayName + ": " + recipeResults.name);
-
-                recipeLink.append(recipeNameDisp);
-                recipeLink.append(recipeImg);
-                recipeDiv.append(recipeLink);
-              });
-
-            $("#recipe-area").prepend(recipeDiv);
-          }
-          $("#recipe-area").append("<br>");
-          $("#recipe-area").append(attributionDiv);
-        });
-    } else {
-      $("#modal1").modal("open");
-    }
-  });
-
+  $("#search-recipe").on("click", yummlyAPI);
   $("#search-rest").on("click", initMap);
 });
