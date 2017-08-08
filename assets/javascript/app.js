@@ -428,6 +428,7 @@ $(document).ready(function () {
   $(".slider").slider();
   $(".button-collapse").sideNav();
   $("#modal1").modal();
+  $("#modal1").css("visibility","hidden");
 
   $("#search-recipe").on("click", yummlyAPI);
   $("#search-rest").on("click", initMap);
