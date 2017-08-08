@@ -71,7 +71,6 @@ function yummlyAPI (e) {
     $.ajax({
       url: queryURL,
       method: "GET",
-      async: false,
       success: function (response) {
         var results = response;
         var numRecipe = Math.min(maxRecipes, response.matches.length);
@@ -97,7 +96,6 @@ function yummlyAPI (e) {
           $.ajax({
             url: newURL,
             method: "GET",
-            async: false,
             success: function (response) {
               var recipeResults = response;
               recipeImg.attr("src", recipeResults.images[0].imageUrlsBySize["360"]);
@@ -119,6 +117,7 @@ function yummlyAPI (e) {
     });
   } else {
     $("#modal1").modal("open");
+    $("#modal1").css("visibility", "visibile");
   }
 };
 function initMap () {
@@ -428,7 +427,6 @@ $(document).ready(function () {
   $(".slider").slider();
   $(".button-collapse").sideNav();
   $("#modal1").modal();
-  $("#modal1").css("visibility","hidden");
 
   $("#search-recipe").on("click", yummlyAPI);
   $("#search-rest").on("click", initMap);
