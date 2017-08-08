@@ -71,6 +71,7 @@ function yummlyAPI (e) {
     $.ajax({
       url: queryURL,
       method: "GET",
+      async: false,
       success: function (response) {
         var results = response;
         var numRecipe = Math.min(maxRecipes, response.matches.length);
@@ -96,6 +97,7 @@ function yummlyAPI (e) {
           $.ajax({
             url: newURL,
             method: "GET",
+            async: false,
             success: function (response) {
               var recipeResults = response;
               recipeImg.attr("src", recipeResults.images[0].imageUrlsBySize["360"]);
