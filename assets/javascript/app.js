@@ -391,7 +391,7 @@ function initMap () {
     service.nearbySearch(request, callback);
   }, function () {
     // Google documentation said to have this, so it was not replaced with a modal.
-    alert("Error");
+    $("#recipe-area").html("<p>There was an error generating the map...");
   });
 };
 
