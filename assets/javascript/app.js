@@ -15,7 +15,7 @@ function checkNum (arr) {
   }
 };
 function checkLet (arr) {
-  var regex = /^[a-zA-Z]+$/;
+  var regex = /^[a-zA-Z\s]*$/;
   var bool = true;
 
   for (var i = 0; i < arr.length; i++) {
